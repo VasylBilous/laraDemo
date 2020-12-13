@@ -1,60 +1,22 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends("partials.mainLayout")
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel</title>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
-    </head>
-
-    <body class="antialiased">
-
-    <?php
-    use \App\Models\Posts;
-
-    $posts = \App\Models\Posts::all();
-
-    foreach ($posts as $post) {
-        echo'
-
-  <div class="card" style="width: 18rem;">
-         <div class="card-header"> '.$post["title"].' </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">'.$post["description_short"].'</li>
-    <li class="list-group-item">'.$post["url"].'</li>
-    <li class="list-group-item">'.$post["is_published"].'</li>
-    <li class="list-group-item">'.$post["description"].'</li>
-  </ul>
-</div>
-
-     ';
-    }
-    ?>
-
-
-    <div id="toolbar">
-        <button class="ql-bold">Bold</button>
-        <button class="ql-italic">Italic</button>
+@section("content")
+    <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-left">
+            @foreach($tags as $item)
+                <a class="p-2 link-secondary" href="#">{{$item["name"]}}</a>
+            @endforeach
+        </nav>
     </div>
-    <div id="editor">
-        <p>Hello World!</p>
-    </div>
-    <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
-    <script>
-        var editor = new Quill('#editor', {
-            modules: { toolbar: '#toolbar' },
-            theme: 'snow'
-        });
-    </script>
+    <main class="container">
+        <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4 font-italic">Title of a longer featured blog post</h1>
+                <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+                <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+            </div>
+        </div>
+    </main>
+    @include("partials.postsList")
 
-
-    </body>
-
-</html>
-
-
-
-
-
+@endsection
